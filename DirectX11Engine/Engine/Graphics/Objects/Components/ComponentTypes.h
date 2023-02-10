@@ -5,3 +5,5 @@
 #include "SpriteRenderer.h"
 #include "MeshRenderer.h"
 #include "SkinnedMeshRenderer.h"
+#include "Collider.h"
+#include "SphereCollider.h"

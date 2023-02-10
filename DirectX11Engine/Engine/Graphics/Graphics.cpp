@@ -8,9 +8,10 @@
 unordered_map<VS_SHADER, shared_ptr<VertexShader>> ShaderHelper::vslist;
 unordered_map<PS_SHADER, shared_ptr<PixelShader>> ShaderHelper::pslist;
 
-#include "../Scenes/StudyBumpMap.h"
-#include "../Scenes/StudySpecular.h"
-#include "../Scenes/StudyPicking.h"
+//#include "../Scenes/StudyBumpMap.h"
+//#include "../Scenes/StudySpecular.h"
+//#include "../Scenes/StudyPicking.h"
+#include "../Scenes/StudyCollision.h"
 
 //렌더링파이프라인
 //IA 인풋어셈블러 - 완료 Input Layout
@@ -215,7 +216,7 @@ bool Graphics::InitializeScene()
 		return false;
 	}
 
-	scene = make_unique<StudyPicking>();
+	scene = make_unique<StudyCollision>();
 	scene->Initialize(this, device.Get(), dc.Get());
 
 	return true;

@@ -144,6 +144,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Engine\Graphics\Objects\Components\Collider.cpp" />
     <ClCompile Include="Engine\Scenes\DefaultScene.cpp" />
     <ClCompile Include="Engine\Graphics\Objects\Color.cpp" />
     <ClCompile Include="Engine\Graphics\Objects\Components\Component.cpp" />
@@ -175,10 +176,13 @@
     <ClCompile Include="Engine\Scenes\StudyBumpMap.cpp" />
     <ClCompile Include="Engine\Scenes\StudySpecular.cpp" />
     <ClCompile Include="Engine\Scenes\StudyPicking.cpp" />
+    <ClCompile Include="Engine\Scenes\StudyCollision.cpp" />
+    <ClCompile Include="Engine\Graphics\Objects\Components\SphereCollider.cpp" />
     <ClCompile Include="WindowContainer.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Engine\Graphics\Objects\Components\Collider.h" />
     <ClInclude Include="Engine\Graphics\ShaderHelper.h" />
     <ClInclude Include="Engine\Scenes\DefaultScene.h" />
     <ClInclude Include="Engine\EngineFileSystem.h" />
@@ -302,6 +306,8 @@
     <ClInclude Include="Engine\Scenes\StudyBumpMap.h" />
     <ClInclude Include="Engine\Scenes\StudySpecular.h" />
     <ClInclude Include="Engine\Scenes\StudyPicking.h" />
+    <ClInclude Include="Engine\Scenes\StudyCollision.h" />
+    <ClInclude Include="Engine\Graphics\Objects\Components\SphereCollider.h" />
     <ClInclude Include="WindowContainer.h" />
   </ItemGroup>
   <ItemGroup>
