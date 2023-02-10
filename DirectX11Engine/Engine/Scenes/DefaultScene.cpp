@@ -2,6 +2,7 @@
 #include "../../RenderWindow.h"
 #include "../Graphics/Graphics.h"
 #include "../Input/Input.h"
+#include "../Graphics/Objects/Components/ComponentTypes.h"
 
 bool DefaultScene::InitializeScene()
 {
@@ -59,7 +60,7 @@ void DefaultScene::RenderFrame()
     dc->IASetInputLayout(vs->GetInputLayout());
     dc->VSSetShader(vs->GetShader(), nullptr, 0);
     dc->PSSetShader(ps->GetShader(), nullptr, 0);
-    model.GetComponent<SkinnedMeshRenderer>()->Draw(mainCam.GetComponent<Camera>()->GetViewprojection());
+    model.GetComponent<Renderer>()->Draw(mainCam.GetComponent<Camera>()->GetViewprojection());
 }
 
 void DefaultScene::OnGUI()

@@ -1,6 +1,6 @@
 #pragma once
 #include "../GameObject.h"
-//#include "Renderer.h"
+#include "Renderer.h"
 #include "../../../EngineFileSystem.h"
 template<typename T>
 class MeshRenderer : public Renderer
@@ -42,7 +42,7 @@ class MeshRenderer : public Renderer
 				v.uv.x = (float)mesh->mTextureCoords[0][i].x;
 				v.uv.y = (float)mesh->mTextureCoords[0][i].y;
 			}
-			vertices.push_back((T)v);
+			vertices.push_back(*reinterpret_cast<T*>(&v)); //강제 형변환 (주소 값 전달)
 		}
 		for (UINT i = 0; i < mesh->mNumFaces; ++i)
 		{
@@ -166,7 +166,7 @@ class MeshRenderer : public Renderer
 	}
 public:
 	bool Initialize(ID3D11Device* device, ID3D11DeviceContext* dc,
-		ID3D11ShaderResourceView* tex, ConstantBuffer<CB_VS_WVP>& cb_mat,
+		string path, ConstantBuffer<CB_VS_WVP>& cb_mat,
 		vector<T>& vertices, vector<DWORD>& indices)
 	{
 		this->device = device;
@@ -174,9 +174,10 @@ public:
 		this->cb_mat = &cb_mat;
 
 		vector<Texture> textures;
-		textures.push_back(Texture(tex, aiTextureType::aiTextureType_DIFFUSE));
+		textures.push_back(Texture(device, path, aiTextureType::aiTextureType_DIFFUSE));
 
-		meshes.push_back(Mesh<T>(device, dc, vertices, indices, textures));
+		meshes.push_back(Mesh<T>(device, dc, vertices, indices, textures, XMMatrixIdentity()));
+		return true;
 	}
 	void Update() override
 	{
@@ -187,12 +188,26 @@ public:
 		UINT offset = 0;
 		dc->VSSetConstantBuffers(0, 1, cb_mat->GetAddressOf());
 
-		for (Mesh<Vertex> mesh : meshes)
+		for (Mesh<T> mesh : meshes)
 		{
 			cb_mat->data.world = mesh.GetLocal() * gameObject->GetTransform()->GetWorld();
 			cb_mat->data.vp = vpMat;
 			cb_mat->Update();
 			mesh.Draw();
+		}
+	}
+	void Draw(const XMMATRIX vpMat, UINT faceNum, vector<Vertex>& vertices, vector<DWORD>& indices,
+		ID3D11RasterizerState* Default, ID3D11RasterizerState* Wire)
+	{
+		UINT offset = 0;
+		dc->VSSetConstantBuffers(0, 1, cb_mat->GetAddressOf());
+
+		for (Mesh<T> mesh : meshes)
+		{
+			cb_mat->data.world = mesh.GetLocal() * gameObject->GetTransform()->GetWorld();
+			cb_mat->data.vp = vpMat;
+			cb_mat->Update();
+			mesh.DrawWireframeAt(faceNum, vertices, indices, Default, Wire);
 		}
 	}
 };

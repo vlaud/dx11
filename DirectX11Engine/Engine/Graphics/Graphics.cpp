@@ -8,6 +8,10 @@
 unordered_map<VS_SHADER, shared_ptr<VertexShader>> ShaderHelper::vslist;
 unordered_map<PS_SHADER, shared_ptr<PixelShader>> ShaderHelper::pslist;
 
+#include "../Scenes/StudyBumpMap.h"
+#include "../Scenes/StudySpecular.h"
+#include "../Scenes/StudyPicking.h"
+
 //렌더링파이프라인
 //IA 인풋어셈블러 - 완료 Input Layout
 //VS 버텍스 셰이더 - 완료
@@ -77,6 +81,11 @@ bool Graphics::InitializeDirectX(HWND hWnd, int w, int h)
 
 		rsDesc.CullMode = D3D11_CULL_MODE::D3D11_CULL_FRONT; //D3D11_CULL_NONE 망토같은 특수한 예
 		hr = device->CreateRasterizerState(&rsDesc, rsCullFront.GetAddressOf());
+		COM_ERROR(hr, L"래스터라이저 스테이트 생성에 실패 하였습니다.");
+
+		rsDesc.CullMode = D3D11_CULL_MODE::D3D11_CULL_BACK;
+		rsDesc.FillMode = D3D11_FILL_MODE::D3D11_FILL_WIREFRAME;
+		hr = device->CreateRasterizerState(&rsDesc, rsWire.GetAddressOf());
 		COM_ERROR(hr, L"래스터라이저 스테이트 생성에 실패 하였습니다.");
 
 		//Create Depth Stencil State
@@ -196,6 +205,9 @@ bool Graphics::InitializeScene()
 		cb_light.data.lightColor = XMFLOAT3(1, 1, 1);
 		cb_light.data.lightStrength = 1.0f;
 		cb_light.data.lightDir = XMFLOAT3(0, -1, 0);
+
+		hr = cb_Campos.Initialize(device.Get(), dc.Get());
+		COM_ERROR(hr, L"컨스턴트 버퍼 생성에 실패 하였습니다.");
 	}
 	catch (ComException& ex)
 	{
@@ -203,7 +215,7 @@ bool Graphics::InitializeScene()
 		return false;
 	}
 
-	scene = make_unique<DefaultScene>();
+	scene = make_unique<StudyPicking>();
 	scene->Initialize(this, device.Get(), dc.Get());
 
 	return true;

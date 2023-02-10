@@ -1,5 +1,7 @@
 #include "Camera.h"
 #include "../GameObject.h"
+#include "ComponentTypes.h"
+
 void Camera::UpdateView()
 {
 	XMVECTOR camFocus = gameObject->GetTransform()->GetPosVector() + gameObject->GetTransform()->GetForward();

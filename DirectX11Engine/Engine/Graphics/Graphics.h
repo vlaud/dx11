@@ -12,7 +12,7 @@
 #include "ImGui/imgui_impl_dx11.h"
 #include "ImGui/imgui_impl_win32.h"
 
-#include "../Scenes/DefaultScene.h"
+#include "../Scenes/Scene.h"
 
 class Graphics
 {
@@ -20,8 +20,7 @@ class Graphics
 	ComPtr<ID3D11DeviceContext> dc; //렌더링 파이프라인
 	ComPtr<IDXGISwapChain> swapChain; //이중 버퍼링
 	ComPtr<ID3D11RenderTargetView> renderTargetView; //출력대상
-	ComPtr<ID3D11RasterizerState> rsCullBack;
-	ComPtr<ID3D11RasterizerState> rsCullFront;
+	
 	//Depth Stencil
 	ComPtr<ID3D11DepthStencilView> dsView;
 	ComPtr<ID3D11Texture2D> dsBuffer;
@@ -36,17 +35,22 @@ class Graphics
 	unique_ptr<SpriteBatch> spriteBatch;
 	unique_ptr<SpriteFont> spriteFont;
 
-	unique_ptr<DefaultScene> scene;
+	unique_ptr<Scene> scene;
 
 	bool InitializeDirectX(HWND hWnd, int w, int h);
 	bool InitializeShaders();
 	bool InitializeScene();
 
 public:
+	ComPtr<ID3D11RasterizerState> rsCullBack;
+	ComPtr<ID3D11RasterizerState> rsCullFront;
+	ComPtr<ID3D11RasterizerState> rsWire;
+
 	ConstantBuffer<CB_VS_WVP> cb;
 	ConstantBuffer<CB_VS_Matrix> cb2D;
 	ConstantBuffer<CB_PS_Alpha> cb_alpha;
 	ConstantBuffer<CB_PS_Light> cb_light;
+	ConstantBuffer<CB_VS_CameraPos> cb_Campos;
 	
 	bool Initialize(HWND hWnd, int w, int h);
 	void RenderFrame();

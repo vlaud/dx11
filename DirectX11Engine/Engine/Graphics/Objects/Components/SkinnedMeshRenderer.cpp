@@ -2,6 +2,7 @@
 #include "../../../EngineFileSystem.h"
 #include "../GameObject.h"
 #include "../../../Time.h"
+#include "ComponentTypes.h"
 void SkinnedMeshRenderer::LoadAnimation(const aiScene* scene, vector<AnimationClipData>& animDatas)
 {
     for (UINT i = 0; i < scene->mNumAnimations; ++i)

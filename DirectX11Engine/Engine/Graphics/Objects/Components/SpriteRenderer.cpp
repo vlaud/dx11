@@ -1,6 +1,7 @@
 #include "SpriteRenderer.h"
 #include "../../../ComException.h"
 #include "../GameObject.h"
+#include "ComponentTypes.h"
 
 void SpriteRenderer::Update()
 {

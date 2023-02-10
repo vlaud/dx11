@@ -1,5 +1,6 @@
 #include "GameObject.h"
 #include "Components/Component.h"
+#include "Components/ComponentTypes.h"
 GameObject::GameObject()
 {
     shared_ptr<Transform> trans = make_shared<Transform>();

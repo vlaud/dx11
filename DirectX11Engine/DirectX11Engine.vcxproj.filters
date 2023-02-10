@@ -114,6 +114,15 @@
     <ClCompile Include="Engine\Graphics\Objects\GeometryHelper.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\Scenes\StudyBumpMap.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Scenes\StudySpecular.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Scenes\StudyPicking.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RenderWindow.h">
@@ -479,6 +488,15 @@
     <ClInclude Include="Engine\Graphics\Objects\GeometryHelper.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\Scenes\StudyBumpMap.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Scenes\StudySpecular.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Scenes\StudyPicking.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Engine\Shaders\vs.hlsl" />
@@ -486,6 +504,10 @@
     <FxCompile Include="Engine\Shaders\vsSprite.hlsl" />
     <FxCompile Include="Engine\Shaders\psSprite.hlsl" />
     <FxCompile Include="Engine\Shaders\vsAnimation.hlsl" />
+    <FxCompile Include="Engine\Shaders\vsBump.hlsl" />
+    <FxCompile Include="Engine\Shaders\psBump.hlsl" />
+    <FxCompile Include="Engine\Shaders\vsSpecular.hlsl" />
+    <FxCompile Include="Engine\Shaders\psSpecular.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Includes\assimp\color4.inl">
@@ -515,5 +537,9 @@
     <None Include="Dlls\assimp-vc143-mt.dll" />
     <None Include="Dlls\pugixml.dll" />
     <None Include="Dlls\zlib1.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\Textures\bump01.dds" />
+    <Image Include="Assets\Textures\stone01.dds" />
   </ItemGroup>
 </Project>

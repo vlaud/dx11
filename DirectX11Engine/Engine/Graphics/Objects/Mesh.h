@@ -60,6 +60,39 @@ public:
 		dc->IASetIndexBuffer(ib.Get(), DXGI_FORMAT::DXGI_FORMAT_R32_UINT, 0);
 		dc->DrawIndexed(ib.Size(), 0, 0);
 	}
+	
+	void DrawWireframeAt(UINT faceNum, const vector<Vertex>& vertices, const vector<DWORD>& indices,
+		ID3D11RasterizerState* Default, ID3D11RasterizerState* Wire)
+	{
+		UINT offset = 0;
+		for (Texture tex : textures)
+		{
+			if (tex.GetType() == aiTextureType::aiTextureType_DIFFUSE)
+			{
+				dc->PSSetShaderResources(0, 1, tex.GetTextureResourceViewAddress());
+				break;
+			}
+		}
+		dc->IASetVertexBuffers(0, 1, vb.GetAddressOf(), vb.StridePtr(), &offset);
+		dc->IASetIndexBuffer(ib.Get(), DXGI_FORMAT::DXGI_FORMAT_R32_UINT, 0);
+		UINT faceCount = 0;
+		for (UINT i = 0; i < indices.size(); i += 3)
+		{
+			if (faceCount == faceNum)
+			{
+				//draw wireframe
+				dc->RSSetState(Wire);
+			}
+			else
+			{
+				dc->RSSetState(Default);
+			}
+			dc->DrawIndexed(3, i, 0);
+			++faceCount;
+		}
+		
+	}
+
 	const XMMATRIX& GetLocal() const
 	{
 		return local;

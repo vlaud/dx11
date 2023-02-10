@@ -1,9 +1,12 @@
 #pragma once
-#include "Components/ComponentTypes.h"
 #include <list>
 #include <unordered_map>
 #include <memory>
+#include <string>
 using namespace std;
+
+class Component;
+class Transform;
 
 class GameObject
 {

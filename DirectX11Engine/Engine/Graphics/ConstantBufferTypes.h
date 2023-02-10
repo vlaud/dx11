@@ -36,3 +36,7 @@ struct CB_VS_BoneData
     XMMATRIX bones[MAX_BONE];
     int hasAnimation;
 };
+struct CB_VS_CameraPos
+{
+    XMFLOAT3 cameraPos;
+};
