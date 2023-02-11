@@ -11,7 +11,8 @@ unordered_map<PS_SHADER, shared_ptr<PixelShader>> ShaderHelper::pslist;
 //#include "../Scenes/StudyBumpMap.h"
 //#include "../Scenes/StudySpecular.h"
 //#include "../Scenes/StudyPicking.h"
-#include "../Scenes/StudyCollision.h"
+//#include "../Scenes/StudyCollision.h"
+#include "../Scenes/MeteorScene.h"
 
 //렌더링파이프라인
 //IA 인풋어셈블러 - 완료 Input Layout
@@ -216,7 +217,7 @@ bool Graphics::InitializeScene()
 		return false;
 	}
 
-	scene = make_unique<StudyCollision>();
+	scene = make_unique<MeteorScene>();
 	scene->Initialize(this, device.Get(), dc.Get());
 
 	return true;

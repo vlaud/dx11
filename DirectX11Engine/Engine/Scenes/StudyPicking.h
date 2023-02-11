@@ -1,9 +1,5 @@
 #pragma once
 #include "Scene.h"
-#include <DirectXMath.h>
-using namespace DirectX;
-
-struct Vertex; 
 
 class StudyPicking : public Scene
 {

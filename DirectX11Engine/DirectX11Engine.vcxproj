@@ -166,6 +166,7 @@
     <ClCompile Include="Engine\Graphics\Objects\GameObject.cpp" />
     <ClCompile Include="Engine\Graphics\Objects\Components\Renderer.cpp" />
     <ClCompile Include="Engine\Graphics\Objects\GeometryHelper.cpp" />
+    <ClCompile Include="Engine\Scenes\MeteorScene.cpp" />
     <ClCompile Include="RenderWindow.cpp" />
     <ClCompile Include="Engine\Graphics\Shaders.cpp" />
     <ClCompile Include="Engine\Time.cpp" />
@@ -295,6 +296,7 @@
     <ClInclude Include="Includes\assimp\ZipArchiveIOSystem.h" />
     <ClInclude Include="Engine\Graphics\Objects\Mesh.h" />
     <ClInclude Include="Engine\Graphics\Objects\Components\MeshRenderer.h" />
+    <ClInclude Include="Engine\Scenes\MeteorScene.h" />
     <ClInclude Include="RenderWindow.h" />
     <ClInclude Include="Engine\Graphics\Shaders.h" />
     <ClInclude Include="Engine\Graphics\Vertex.h" />

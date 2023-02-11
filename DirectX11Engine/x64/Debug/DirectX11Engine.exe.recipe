@@ -2,36 +2,36 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>C:\Users\Atents\Documents\GitHub\dx11\DirectX11Engine\x64\Debug\DirectX11Engine.exe</FullPath>
+      <FullPath>D:\rep\dx11\DirectX11Engine\x64\Debug\DirectX11Engine.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles>
     <ContentFile>
-      <FullPath>C:\Users\Atents\Documents\GitHub\dx11\DirectX11Engine\x64\Debug\psBump.cso</FullPath>
+      <FullPath>D:\rep\dx11\DirectX11Engine\x64\Debug\psBump.cso</FullPath>
     </ContentFile>
     <ContentFile>
-      <FullPath>C:\Users\Atents\Documents\GitHub\dx11\DirectX11Engine\x64\Debug\psSpecular.cso</FullPath>
+      <FullPath>D:\rep\dx11\DirectX11Engine\x64\Debug\psSpecular.cso</FullPath>
     </ContentFile>
     <ContentFile>
-      <FullPath>C:\Users\Atents\Documents\GitHub\dx11\DirectX11Engine\x64\Debug\psSprite.cso</FullPath>
+      <FullPath>D:\rep\dx11\DirectX11Engine\x64\Debug\psSprite.cso</FullPath>
     </ContentFile>
     <ContentFile>
-      <FullPath>C:\Users\Atents\Documents\GitHub\dx11\DirectX11Engine\x64\Debug\vs.cso</FullPath>
+      <FullPath>D:\rep\dx11\DirectX11Engine\x64\Debug\vs.cso</FullPath>
     </ContentFile>
     <ContentFile>
-      <FullPath>C:\Users\Atents\Documents\GitHub\dx11\DirectX11Engine\x64\Debug\ps.cso</FullPath>
+      <FullPath>D:\rep\dx11\DirectX11Engine\x64\Debug\ps.cso</FullPath>
     </ContentFile>
     <ContentFile>
-      <FullPath>C:\Users\Atents\Documents\GitHub\dx11\DirectX11Engine\x64\Debug\vsAnimation.cso</FullPath>
+      <FullPath>D:\rep\dx11\DirectX11Engine\x64\Debug\vsAnimation.cso</FullPath>
     </ContentFile>
     <ContentFile>
-      <FullPath>C:\Users\Atents\Documents\GitHub\dx11\DirectX11Engine\x64\Debug\vsBump.cso</FullPath>
+      <FullPath>D:\rep\dx11\DirectX11Engine\x64\Debug\vsBump.cso</FullPath>
     </ContentFile>
     <ContentFile>
-      <FullPath>C:\Users\Atents\Documents\GitHub\dx11\DirectX11Engine\x64\Debug\vsSpecular.cso</FullPath>
+      <FullPath>D:\rep\dx11\DirectX11Engine\x64\Debug\vsSpecular.cso</FullPath>
     </ContentFile>
     <ContentFile>
-      <FullPath>C:\Users\Atents\Documents\GitHub\dx11\DirectX11Engine\x64\Debug\vsSprite.cso</FullPath>
+      <FullPath>D:\rep\dx11\DirectX11Engine\x64\Debug\vsSprite.cso</FullPath>
     </ContentFile>
   </ContentFiles>
   <SatelliteDlls />

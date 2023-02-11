@@ -1,7 +1,10 @@
 #pragma once
 #include "../Graphics/Objects/GameObject.h"
 #include "../Graphics//ShaderHelper.h"
+#include <DirectXMath.h>
+using namespace DirectX;
 
+struct Vertex;
 class Graphics;
 class ID3D11Device;
 class ID3D11DeviceContext;
