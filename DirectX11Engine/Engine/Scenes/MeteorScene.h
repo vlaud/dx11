@@ -16,6 +16,7 @@ class MeteorScene : public Scene
 	vector<unique_ptr<GameObject>> obstacles;
 
 	float pickDist = 0.0f;
+	int score = 0;
 
 	bool SphereIntersect(XMVECTOR orgDir, XMVECTOR rayDir);
 	void Picking();
@@ -26,5 +27,6 @@ public:
 	void Update(float delta) override;
 	void RenderFrame() override;
 	void OnGUI() override;
+	int GetScore() override;
 };
 

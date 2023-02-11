@@ -28,4 +28,5 @@ public:
 	virtual void RenderFrame() = 0;
 	virtual void OnGUI() = 0;
 
+	virtual int GetScore() { return 0; };
 };

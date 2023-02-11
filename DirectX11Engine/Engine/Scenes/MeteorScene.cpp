@@ -161,6 +161,7 @@ void MeteorScene::Update(float delta)
             if (IsPickingObs(*iter))
             {
                 iter = obstacles.erase(iter);
+                score++;
                 continue;
             }
             iter++;
@@ -199,4 +200,9 @@ void MeteorScene::RenderFrame()
 
 void MeteorScene::OnGUI()
 {
+}
+
+int MeteorScene::GetScore()
+{
+    return score;
 }
