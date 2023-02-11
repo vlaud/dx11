@@ -98,7 +98,7 @@ bool MeteorScene::InitializeScene()
 {
     shared_ptr<Camera> cam = make_shared<Camera>();
     cam->SetPerspective(90.0f, (float)RenderWindow::ScreenWidth / (float)RenderWindow::ScreenHeight,
-        0.01f, 1000.0f);
+        0.1f, 1000.0f);
     mainCam.AddComponent(cam);
     mainCam.GetTransform()->SetPos(0.0f, 0.0f, -3.0f);
 
@@ -143,6 +143,7 @@ bool MeteorScene::InitializeScene()
 void MeteorScene::Update(float delta)
 {
     if (model == nullptr) return;
+    if (obstacles.size() == 0) return;
     if (Input::mouse->IsRightDown())
     {
         campos.GetTransform()->Rotate((float)Input::mouse->GetRawY() * 0.03f,
@@ -173,7 +174,7 @@ void MeteorScene::Update(float delta)
         for (auto iter = obstacles.begin(); iter != obstacles.end();)
         {
             XMVECTOR vec = model->GetTransform()->GetPosVector() - (*iter)->GetTransform()->GetPosVector();
-            (*iter)->GetTransform()->Translate(vec * 0.1f * delta);
+            (*iter)->GetTransform()->Translate(vec * 0.01f * delta);
             if (model->GetComponent<Collider>()->CheckCrash(*model->GetComponent<Collider>(), *(*iter)->GetComponent<Collider>()))
             {
                 iter = obstacles.erase(iter);
@@ -214,6 +215,7 @@ void MeteorScene::OnText(unique_ptr<SpriteBatch>& spriteBatch)
     wstring wlife = L"Life: " + to_wstring(life);
     wstring wscore = L"Score: " + to_wstring(score);
     wstring gameover = L"Gameover";
+    wstring clear = L"Clear";
     spriteFont->DrawString(spriteBatch.get(), wlife.c_str(),
         XMFLOAT2(150, 0), Colors::White, 0, XMFLOAT2(0, 0), XMFLOAT2(1, 1));
     spriteFont->DrawString(spriteBatch.get(), wscore.c_str(),
@@ -221,6 +223,11 @@ void MeteorScene::OnText(unique_ptr<SpriteBatch>& spriteBatch)
     if (life == 0)
     {
         spriteFont->DrawString(spriteBatch.get(), gameover.c_str(),
+            XMFLOAT2(150, 100), Colors::White, 0, XMFLOAT2(0, 0), XMFLOAT2(1, 1));
+    }
+    if (obstacles.size() == 0)
+    {
+        spriteFont->DrawString(spriteBatch.get(), clear.c_str(),
             XMFLOAT2(150, 100), Colors::White, 0, XMFLOAT2(0, 0), XMFLOAT2(1, 1));
     }
 }
