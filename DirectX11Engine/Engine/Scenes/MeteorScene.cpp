@@ -98,7 +98,7 @@ bool MeteorScene::InitializeScene()
 {
     shared_ptr<Camera> cam = make_shared<Camera>();
     cam->SetPerspective(90.0f, (float)RenderWindow::ScreenWidth / (float)RenderWindow::ScreenHeight,
-        0.1f, 1000.0f);
+        0.01f, 1000.0f);
     mainCam.AddComponent(cam);
     mainCam.GetTransform()->SetPos(0.0f, 0.0f, -3.0f);
 
@@ -174,7 +174,7 @@ void MeteorScene::Update(float delta)
         for (auto iter = obstacles.begin(); iter != obstacles.end();)
         {
             XMVECTOR vec = model->GetTransform()->GetPosVector() - (*iter)->GetTransform()->GetPosVector();
-            (*iter)->GetTransform()->Translate(vec * 0.01f * delta);
+            (*iter)->GetTransform()->Translate(vec * 0.1f * delta);
             if (model->GetComponent<Collider>()->CheckCrash(*model->GetComponent<Collider>(), *(*iter)->GetComponent<Collider>()))
             {
                 iter = obstacles.erase(iter);
