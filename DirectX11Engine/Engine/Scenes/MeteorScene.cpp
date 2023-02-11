@@ -151,7 +151,8 @@ void MeteorScene::Update(float delta)
     XMFLOAT3 rot = campos.GetTransform()->GetRot();
     mainCam.GetTransform()->SetRot(rot);
     XMVECTOR back = campos.GetTransform()->GetBackward();
-    mainCam.GetTransform()->SetPos(back * 3.0f);
+    XMVECTOR up = campos.GetTransform()->GetUp();
+    mainCam.GetTransform()->SetPos(back * 3.0f + up * 1.0f);
    
     if (Input::mouse->IsLeftDown())
     {
@@ -169,6 +170,8 @@ void MeteorScene::Update(float delta)
     {
         for (auto iter = obstacles.begin(); iter != obstacles.end();)
         {
+            XMVECTOR vec = model->GetTransform()->GetPosVector() - (*iter)->GetTransform()->GetPosVector();
+            (*iter)->GetTransform()->Translate(vec * 0.1f * delta);
             if (model->GetComponent<Collider>()->CheckCrash(*model->GetComponent<Collider>(), *(*iter)->GetComponent<Collider>()))
             {
                 iter = obstacles.erase(iter);
