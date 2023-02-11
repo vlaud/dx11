@@ -51,11 +51,47 @@ void MeteorScene::Picking()
 
     XMVECTOR orgDir = XMVector2TransformCoord(XMVectorSet(0, 0, 0, 1), Local);
     rayDir = XMVector3Normalize(XMVector3TransformNormal(rayDir, Local));
-    
+
     if (SphereIntersect(orgDir, rayDir))
     {
         model.release();
     }
+}
+
+bool MeteorScene::IsPickingObs(unique_ptr<GameObject> &obj)
+{
+    if (obj == nullptr) return false;
+    MousePoint mousePos = Input::mouse->GetPos();
+
+    D3D11_VIEWPORT vp;
+    UINT n = 1;
+    dc->RSGetViewports(&n, &vp);
+
+    Camera* cam = mainCam.GetComponent<Camera>();
+
+    XMMATRIX mat = cam->GetprojectionMatrix();
+    XMFLOAT4X4 proj;
+    XMStoreFloat4x4(&proj, mat);
+
+    XMFLOAT3 pos;
+    pos.x = ((mousePos.x * 2.0f) / vp.Width - 1.0f) / proj(0, 0);
+    pos.y = ((mousePos.y * -2.0f) / vp.Height + 1.0f) / proj(1, 1);
+    pos.z = vp.MaxDepth;
+
+    XMVECTOR rayDir = XMVectorSet(pos.x, pos.y, pos.z, 0.0f);
+
+    XMMATRIX inverseView = XMMatrixInverse(nullptr, cam->GetViewMatrix());
+    XMMATRIX inverseWorld = XMMatrixInverse(nullptr, obj->GetTransform()->GetWorld());
+    XMMATRIX Local = XMMatrixMultiply(inverseView, inverseWorld);
+
+    XMVECTOR orgDir = XMVector2TransformCoord(XMVectorSet(0, 0, 0, 1), Local);
+    rayDir = XMVector3Normalize(XMVector3TransformNormal(rayDir, Local));
+
+    if (SphereIntersect(orgDir, rayDir))
+    {
+        return true;
+    }
+    return false;
 }
 
 bool MeteorScene::InitializeScene()
@@ -104,10 +140,6 @@ bool MeteorScene::InitializeScene()
 
 void MeteorScene::Update(float delta)
 {
-    if (Input::mouse->IsLeftDown())
-    {
-        Picking();
-    }
     if (Input::mouse->IsRightDown())
     {
         mainCam.GetTransform()->Rotate((float)Input::mouse->GetRawY() * 0.03f,
@@ -159,6 +191,18 @@ void MeteorScene::Update(float delta)
     {
         model->GetTransform()->Translate(mainCam.GetTransform()->GetRight() * delta * 3.0f);
     }
+    if (Input::mouse->IsLeftDown())
+    {
+        for (auto iter = obstacles.begin(); iter != obstacles.end();)
+        {
+            if (IsPickingObs(*iter))
+            {
+                iter = obstacles.erase(iter);
+                continue;
+            }
+            iter++;
+        }
+    }
     if (model != nullptr)
     {
         for (auto iter = obstacles.begin(); iter != obstacles.end();)
@@ -171,7 +215,6 @@ void MeteorScene::Update(float delta)
             iter++;
         }
     }
-  
 }
 
 void MeteorScene::RenderFrame()

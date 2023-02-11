@@ -18,6 +18,7 @@ class MeteorScene : public Scene
 
 	bool SphereIntersect(XMVECTOR orgDir, XMVECTOR rayDir);
 	void Picking();
+	bool IsPickingObs(unique_ptr<GameObject>& obj);
 protected:
 	bool InitializeScene() override;
 public:
