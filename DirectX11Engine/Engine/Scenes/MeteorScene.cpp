@@ -142,6 +142,7 @@ bool MeteorScene::InitializeScene()
 
 void MeteorScene::Update(float delta)
 {
+    if (model == nullptr) return;
     if (Input::mouse->IsRightDown())
     {
         campos.GetTransform()->Rotate((float)Input::mouse->GetRawY() * 0.03f,
@@ -182,6 +183,10 @@ void MeteorScene::Update(float delta)
             iter++;
         }
     }
+    if (life <= 0)
+    {
+        model.release();
+    }
 }
 
 void MeteorScene::RenderFrame()
@@ -208,10 +213,16 @@ void MeteorScene::OnText(unique_ptr<SpriteBatch>& spriteBatch)
     //Draw text
     wstring wlife = L"Life: " + to_wstring(life);
     wstring wscore = L"Score: " + to_wstring(score);
+    wstring gameover = L"Gameover";
     spriteFont->DrawString(spriteBatch.get(), wlife.c_str(),
         XMFLOAT2(150, 0), Colors::White, 0, XMFLOAT2(0, 0), XMFLOAT2(1, 1));
     spriteFont->DrawString(spriteBatch.get(), wscore.c_str(),
         XMFLOAT2(150, 20), Colors::White, 0, XMFLOAT2(0, 0), XMFLOAT2(1, 1));
+    if (life == 0)
+    {
+        spriteFont->DrawString(spriteBatch.get(), gameover.c_str(),
+            XMFLOAT2(150, 100), Colors::White, 0, XMFLOAT2(0, 0), XMFLOAT2(1, 1));
+    }
 }
 
 int MeteorScene::GetScore()
