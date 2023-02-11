@@ -109,6 +109,8 @@ bool MeteorScene::InitializeScene()
     render->Initialize(device, dc, "Assets/Textures/Ryan2.jpg", gfx->cb, vertices, indices);
     model = make_unique<GameObject>();
     model->AddComponent(render);
+    XMFLOAT3 pos = model->GetTransform()->GetPos();
+    campos.GetTransform()->SetPos(pos);
 
     shared_ptr<SphereCollider> collider = make_shared<SphereCollider>();
     collider->Initialize(1.0f);
@@ -142,55 +144,15 @@ void MeteorScene::Update(float delta)
 {
     if (Input::mouse->IsRightDown())
     {
-        mainCam.GetTransform()->Rotate((float)Input::mouse->GetRawY() * 0.03f,
+        campos.GetTransform()->Rotate((float)Input::mouse->GetRawY() * 0.03f,
             (float)Input::mouse->GetRawX() * 0.03f, 0.0f);
     }
-    if (Input::keyboard->KeyIsPressed('W'))
-    {
-        mainCam.GetTransform()->Translate(mainCam.GetTransform()->GetForward() * delta * 3.0f);
-        model->GetTransform()->Translate(mainCam.GetTransform()->GetForward() * delta * 3.0f);
-    }
-    if (Input::keyboard->KeyIsPressed('S'))
-    {
-        mainCam.GetTransform()->Translate(mainCam.GetTransform()->GetBackward() * delta * 3.0f);
-        model->GetTransform()->Translate(mainCam.GetTransform()->GetBackward() * delta * 3.0f);
-    }
-    if (Input::keyboard->KeyIsPressed('A'))
-    {
-        mainCam.GetTransform()->Translate(mainCam.GetTransform()->GetLeft() * delta * 3.0f);
-        model->GetTransform()->Translate(mainCam.GetTransform()->GetLeft() * delta * 3.0f);
-    }
-    if (Input::keyboard->KeyIsPressed('D'))
-    {
-        mainCam.GetTransform()->Translate(mainCam.GetTransform()->GetRight() * delta * 3.0f);
-        model->GetTransform()->Translate(mainCam.GetTransform()->GetRight() * delta * 3.0f);
-    }
-    if (Input::keyboard->KeyIsPressed('Q'))
-    {
-        mainCam.GetTransform()->Translate(mainCam.GetTransform()->GetUp() * delta * 3.0f);
-        model->GetTransform()->Translate(mainCam.GetTransform()->GetUp() * delta * 3.0f);
-    }
-    if (Input::keyboard->KeyIsPressed('E'))
-    {
-        mainCam.GetTransform()->Translate(mainCam.GetTransform()->GetDown() * delta * 3.0f);
-        model->GetTransform()->Translate(mainCam.GetTransform()->GetDown() * delta * 3.0f);
-    }
-    if (Input::keyboard->KeyIsPressed(VK_UP))
-    {
-        model->GetTransform()->Translate(mainCam.GetTransform()->GetForward() * delta * 3.0f);
-    }
-    if (Input::keyboard->KeyIsPressed(VK_DOWN))
-    {
-        model->GetTransform()->Translate(mainCam.GetTransform()->GetBackward() * delta * 3.0f);
-    }
-    if (Input::keyboard->KeyIsPressed(VK_LEFT))
-    {
-        model->GetTransform()->Translate(mainCam.GetTransform()->GetLeft() * delta * 3.0f);
-    }
-    if (Input::keyboard->KeyIsPressed(VK_RIGHT))
-    {
-        model->GetTransform()->Translate(mainCam.GetTransform()->GetRight() * delta * 3.0f);
-    }
+    model->GetTransform()->Rotate(0.0f, delta * 0.03f, 0.0f);
+    XMFLOAT3 rot = campos.GetTransform()->GetRot();
+    mainCam.GetTransform()->SetRot(rot);
+    XMVECTOR back = campos.GetTransform()->GetBackward();
+    mainCam.GetTransform()->SetPos(back * 3.0f);
+   
     if (Input::mouse->IsLeftDown())
     {
         for (auto iter = obstacles.begin(); iter != obstacles.end();)

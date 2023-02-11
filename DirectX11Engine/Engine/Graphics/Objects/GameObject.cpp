@@ -1,7 +1,7 @@
 #include "GameObject.h"
 #include "Components/Component.h"
 #include "Components/ComponentTypes.h"
-GameObject::GameObject()
+GameObject::GameObject() // gameobject 积己矫 transform 磊悼积己
 {
     shared_ptr<Transform> trans = make_shared<Transform>();
     AddComponent(trans);

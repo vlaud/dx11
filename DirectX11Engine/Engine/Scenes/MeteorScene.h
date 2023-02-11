@@ -4,6 +4,7 @@
 class MeteorScene : public Scene
 {
 	GameObject mainCam;
+	GameObject campos;
 	unique_ptr<GameObject> model;
 
 	VertexShader* vs = nullptr;
