@@ -277,12 +277,10 @@ void Graphics::RenderFrame()
 	}
 
 	//Draw text
-	wstring score = L"Score: " + to_wstring(scene->GetScore());
 	spriteBatch->Begin();
 	spriteFont->DrawString(spriteBatch.get(), fpsStr.c_str(),
 		XMFLOAT2(0, 0), Colors::White, 0, XMFLOAT2(0, 0), XMFLOAT2(1, 1));
-	spriteFont->DrawString(spriteBatch.get(), score.c_str(),
-		XMFLOAT2(150, 0), Colors::White, 0, XMFLOAT2(0, 0), XMFLOAT2(1, 1));
+	scene->OnText(spriteBatch);
 	spriteBatch->End();
 
 	//Draw imGUI

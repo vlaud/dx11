@@ -134,7 +134,7 @@ bool MeteorScene::InitializeScene()
 
         obstacles.push_back(move(obj));
     }
-
+    spriteFont = make_unique<SpriteFont>(device, L"Assets/Fonts/mySpritefont.sf");
     vs = ShaderHelper::GetShader(device, VS_SHADER::DEFAULT);
     ps = ShaderHelper::GetShader(device, PS_SHADER::DEFAULT);
     return true;
@@ -176,6 +176,7 @@ void MeteorScene::Update(float delta)
             if (model->GetComponent<Collider>()->CheckCrash(*model->GetComponent<Collider>(), *(*iter)->GetComponent<Collider>()))
             {
                 iter = obstacles.erase(iter);
+                life--;
                 continue;
             }
             iter++;
@@ -200,6 +201,17 @@ void MeteorScene::RenderFrame()
 
 void MeteorScene::OnGUI()
 {
+}
+
+void MeteorScene::OnText(unique_ptr<SpriteBatch>& spriteBatch)
+{
+    //Draw text
+    wstring wlife = L"Life: " + to_wstring(life);
+    wstring wscore = L"Score: " + to_wstring(score);
+    spriteFont->DrawString(spriteBatch.get(), wlife.c_str(),
+        XMFLOAT2(150, 0), Colors::White, 0, XMFLOAT2(0, 0), XMFLOAT2(1, 1));
+    spriteFont->DrawString(spriteBatch.get(), wscore.c_str(),
+        XMFLOAT2(150, 20), Colors::White, 0, XMFLOAT2(0, 0), XMFLOAT2(1, 1));
 }
 
 int MeteorScene::GetScore()
