@@ -7,3 +7,4 @@
 #include "SkinnedMeshRenderer.h"
 #include "Collider.h"
 #include "SphereCollider.h"
+#include "BoxCollider.h"

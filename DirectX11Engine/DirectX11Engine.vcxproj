@@ -144,6 +144,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Engine\Graphics\Objects\Components\BoxCollider.cpp" />
     <ClCompile Include="Engine\Graphics\Objects\Components\Collider.cpp" />
     <ClCompile Include="Engine\Scenes\DefaultScene.cpp" />
     <ClCompile Include="Engine\Graphics\Objects\Color.cpp" />
@@ -183,6 +184,7 @@
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Engine\Graphics\Objects\Components\BoxCollider.h" />
     <ClInclude Include="Engine\Graphics\Objects\Components\Collider.h" />
     <ClInclude Include="Engine\Graphics\ShaderHelper.h" />
     <ClInclude Include="Engine\Scenes\DefaultScene.h" />

@@ -11,8 +11,8 @@ unordered_map<PS_SHADER, shared_ptr<PixelShader>> ShaderHelper::pslist;
 //#include "../Scenes/StudyBumpMap.h"
 //#include "../Scenes/StudySpecular.h"
 //#include "../Scenes/StudyPicking.h"
-//#include "../Scenes/StudyCollision.h"
-#include "../Scenes/MeteorScene.h"
+#include "../Scenes/StudyCollision.h"
+//#include "../Scenes/MeteorScene.h"
 
 //렌더링파이프라인
 //IA 인풋어셈블러 - 완료 Input Layout
@@ -217,7 +217,7 @@ bool Graphics::InitializeScene()
 		return false;
 	}
 
-	scene = make_unique<MeteorScene>();
+	scene = make_unique<StudyCollision>();
 	scene->Initialize(this, device.Get(), dc.Get());
 
 	return true;
@@ -280,7 +280,7 @@ void Graphics::RenderFrame()
 	spriteBatch->Begin();
 	spriteFont->DrawString(spriteBatch.get(), fpsStr.c_str(),
 		XMFLOAT2(0, 0), Colors::White, 0, XMFLOAT2(0, 0), XMFLOAT2(1, 1));
-	scene->OnText(spriteBatch);
+	//scene->OnText(spriteBatch);
 	spriteBatch->End();
 
 	//Draw imGUI

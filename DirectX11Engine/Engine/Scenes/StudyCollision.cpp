@@ -16,6 +16,7 @@ bool StudyCollision::InitializeScene()
 
     vector<Vertex> vertices;
     vector<DWORD> indices;
+    /*
     shared_ptr<MeshRenderer<Vertex>> render = make_shared<MeshRenderer<Vertex>>();
     GeometryHelper::GeneratorSphere(1.0f, 100, 100, &vertices, &indices);
     render->Initialize(device, dc, "Assets/Textures/Ryan2.jpg", gfx->cb, vertices, indices);
@@ -43,6 +44,25 @@ bool StudyCollision::InitializeScene()
 
         obstacles.push_back(move(obj));
     }
+    */
+    shared_ptr<MeshRenderer<Vertex>> renderBox1 = make_shared<MeshRenderer<Vertex>>();
+    GeometryHelper::GeneratorBox(1, 1, 1, &vertices, &indices);
+    renderBox1->Initialize(device, dc, "Assets/Textures/Ryan2.jpg", gfx->cb, vertices, indices);
+    box1.AddComponent(renderBox1);
+
+    shared_ptr<MeshRenderer<Vertex>> renderBox2 = make_shared<MeshRenderer<Vertex>>();
+    GeometryHelper::GeneratorBox(1, 1, 2, &vertices, &indices);
+    renderBox2->Initialize(device, dc, "Assets/Textures/Ryan2.jpg", gfx->cb, vertices, indices);
+    box2.AddComponent(renderBox2);
+    box2.GetTransform()->Translate(box2.GetTransform()->GetForward() * 2.0f);
+
+    shared_ptr<BoxCollider> boxCollider1 = make_shared<BoxCollider>();
+    boxCollider1->Initialize(1,1,1);
+    box1.AddComponent(boxCollider1);
+
+    shared_ptr<BoxCollider> boxCollider2 = make_shared<BoxCollider>();
+    boxCollider2->Initialize(1, 1, 2);
+    box2.AddComponent(boxCollider2);
 
     vs = ShaderHelper::GetShader(device, VS_SHADER::DEFAULT);
     ps = ShaderHelper::GetShader(device, PS_SHADER::DEFAULT);
@@ -59,33 +79,28 @@ void StudyCollision::Update(float delta)
     if (Input::keyboard->KeyIsPressed('W'))
     {
         mainCam.GetTransform()->Translate(mainCam.GetTransform()->GetForward() * delta * 3.0f);
-        model.GetTransform()->Translate(mainCam.GetTransform()->GetForward() * delta * 3.0f);
     }
     if (Input::keyboard->KeyIsPressed('S'))
     {
         mainCam.GetTransform()->Translate(mainCam.GetTransform()->GetBackward() * delta * 3.0f);
-        model.GetTransform()->Translate(mainCam.GetTransform()->GetBackward() * delta * 3.0f);
     }
     if (Input::keyboard->KeyIsPressed('A'))
     {
         mainCam.GetTransform()->Translate(mainCam.GetTransform()->GetLeft() * delta * 3.0f);
-        model.GetTransform()->Translate(mainCam.GetTransform()->GetLeft() * delta * 3.0f);
     }
     if (Input::keyboard->KeyIsPressed('D'))
     {
         mainCam.GetTransform()->Translate(mainCam.GetTransform()->GetRight() * delta * 3.0f);
-        model.GetTransform()->Translate(mainCam.GetTransform()->GetRight() * delta * 3.0f);
     }
     if (Input::keyboard->KeyIsPressed('Q'))
     {
         mainCam.GetTransform()->Translate(mainCam.GetTransform()->GetUp() * delta * 3.0f);
-        model.GetTransform()->Translate(mainCam.GetTransform()->GetUp() * delta * 3.0f);
     }
     if (Input::keyboard->KeyIsPressed('E'))
     {
         mainCam.GetTransform()->Translate(mainCam.GetTransform()->GetDown() * delta * 3.0f);
-        model.GetTransform()->Translate(mainCam.GetTransform()->GetDown() * delta * 3.0f);
     }
+    /*
     if (Input::keyboard->KeyIsPressed(VK_UP))
     {
         model.GetTransform()->Translate(mainCam.GetTransform()->GetForward() * delta * 3.0f);
@@ -102,6 +117,7 @@ void StudyCollision::Update(float delta)
     {
         model.GetTransform()->Translate(mainCam.GetTransform()->GetRight() * delta * 3.0f);
     }
+   
     for (auto iter = obstacles.begin(); iter != obstacles.end();)
     {
         if (model.GetComponent<Collider>()->CheckCrash(*model.GetComponent<Collider>(), *(*iter)->GetComponent<Collider>()))
@@ -110,7 +126,24 @@ void StudyCollision::Update(float delta)
             continue;
         }
         iter++;
+    }*/
+    if (Input::keyboard->KeyIsPressed(VK_UP))
+    {
+        box1.GetTransform()->Translate(box1.GetTransform()->GetForward() * delta * 3.0f);
     }
+    if (Input::keyboard->KeyIsPressed(VK_DOWN))
+    {
+        box1.GetTransform()->Translate(box1.GetTransform()->GetBackward() * delta * 3.0f);
+    }
+    if (Input::keyboard->KeyIsPressed(VK_LEFT))
+    {
+        box1.GetTransform()->Rotate(0.0f, -delta * XM_PI, 0.0f);
+    }
+    if (Input::keyboard->KeyIsPressed(VK_RIGHT))
+    {
+        box1.GetTransform()->Rotate(0.0f, delta * XM_PI, 0.0f);
+    }
+    boxCrash = box1.GetComponent<Collider>()->CheckCrash(*box1.GetComponent<Collider>(), *box2.GetComponent<Collider>());
 }
 
 void StudyCollision::RenderFrame()
@@ -118,14 +151,32 @@ void StudyCollision::RenderFrame()
     dc->IASetInputLayout(vs->GetInputLayout());
     dc->VSSetShader(vs->GetShader(), nullptr, 0);
     dc->PSSetShader(ps->GetShader(), nullptr, 0);
-    model.GetComponent<Renderer>()->Draw(mainCam.GetComponent<Camera>()->GetViewprojection());
 
+    /*
+    model.GetComponent<Renderer>()->Draw(mainCam.GetComponent<Camera>()->GetViewprojection());
+   
     for (UINT i = 0; i < obstacles.size(); ++i)
     {
         obstacles[i]->GetComponent<Renderer>()->Draw(mainCam.GetComponent<Camera>()->GetViewprojection());
+    }*/
+
+    if (boxCrash)
+    {
+        dc->RSSetState(gfx->rsWire.Get());
     }
+    box1.GetComponent<Renderer>()->Draw(mainCam.GetComponent<Camera>()->GetViewprojection());
+    box2.GetComponent<Renderer>()->Draw(mainCam.GetComponent<Camera>()->GetViewprojection());
 }
 
 void StudyCollision::OnGUI()
 {
+}
+
+void StudyCollision::OnText(unique_ptr<SpriteBatch>& spriteBatch)
+{
+}
+
+int StudyCollision::GetScore()
+{
+    return 0;
 }
