@@ -6,6 +6,58 @@ class GeometryHelper
 {
 public:
 	template<typename T>
+	static void GeneratorPyramid(float w, float h, float d, vector<T>* vertices, vector<unsigned long>* indices)
+	{
+		vertices->clear();
+		vertices->resize(16);
+		Vertex v[] =
+		{
+			Vertex(0.0f * w, 1.0f * h, 0.0f * d, 0.5f, 0.5f),
+			Vertex(-0.5f * w, 0.0f * h, 0.5f * d, 0.0f, 1.0f),
+			Vertex(0.5f * w, 0.0f * h, 0.5f * d, 1.0f, 1.0f),
+
+			Vertex(0.0f * w, 1.0f * h, 0.0f * d, 0.5f, 0.5f),
+			Vertex(0.5f * w, 0.0f * h, 0.5f * d, 1.0f,1.0f),
+			Vertex(0.5f * w, 0.0f * h, -0.5f * d, 1.0f, 0.0f),
+
+			Vertex(0.0f * w, 1.0f * h, 0.0f * d, 0.5f, 0.5f),
+			Vertex(0.5f * w, 0.0f * h, -0.5f * d, 1.0f, 0.0f),
+			Vertex(-0.5f * w, 0.0f * h, -0.5f * d, 0.0f, 0.0f),
+
+			Vertex(0.0f * w, 1.0f * h, 0.0f * d, 0.5f, 0.5f),
+			Vertex(-0.5f * w, 0.0f * h, -0.5f * d, 0.0f, 0.0f),
+			Vertex(-0.5f * w, 0.0f * h, 0.5f * d, 0.0f, 1.0f),
+
+			Vertex(-0.5f * w, 0.0f * h, 0.5f * d, 0.0f, 0.0f),
+			Vertex(0.5f * w, 0.0f * h, 0.5f * d, 1.0f, 0.0f),
+			Vertex(-0.5f * w, 0.0f * h, -0.5f * d, 0.0f, 1.0f),
+			Vertex(0.5f * w, 0.0f * h, -0.5f * d, 1.0f, 1.0f),
+		};
+		for (int i = 0; i < vertices->size(); ++i)
+		{
+			memcpy(&(*vertices)[i], &v[i], sizeof(Vertex));
+		}
+
+		indices->clear();
+		indices->resize(18);
+		
+		unsigned long ind[18];
+		for (int i = 0; i < 12; ++i)
+		{
+			ind[i] = i;
+		}
+		ind[12] = 12;
+		ind[13] = 14;
+		ind[14] = 13;
+		ind[15] = 13;
+		ind[16] = 14;
+		ind[17] = 15;
+		for (int i = 0; i < indices->size(); ++i)
+		{
+			(*indices)[i] = ind[i];
+		}
+	}
+	template<typename T>
 	static void GeneratorBox(float w, float h, float d, vector<T>* vertices, vector<unsigned long>* indices)
 	{
 		vertices->clear();

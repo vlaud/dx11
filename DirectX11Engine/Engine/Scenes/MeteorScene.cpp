@@ -105,7 +105,9 @@ bool MeteorScene::InitializeScene()
     vector<Vertex> vertices;
     vector<DWORD> indices;
     shared_ptr<MeshRenderer<Vertex>> render = make_shared<MeshRenderer<Vertex>>();
-    GeometryHelper::GeneratorSphere(1.0f, 100, 100, &vertices, &indices);
+    //GeometryHelper::GeneratorSphere(1.0f, 100, 100, &vertices, &indices);
+    //GeometryHelper::GeneratorBox(1, 1, 1, &vertices, &indices);
+    GeometryHelper::GeneratorPyramid(1, 1, 1, &vertices, &indices);
     render->Initialize(device, dc, "Assets/Textures/Ryan2.jpg", gfx->cb, vertices, indices);
     model = make_unique<GameObject>();
     model->AddComponent(render);

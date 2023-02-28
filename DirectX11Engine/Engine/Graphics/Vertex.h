@@ -14,6 +14,7 @@ public:
 	Vertex(XMFLOAT3 pos, XMFLOAT3 color) : pos(pos), color(color), uv(0, 0), normal(0, 0, 0) {}
 	Vertex(XMFLOAT3 pos, XMFLOAT2 uv) : pos(pos), color(1,1,1), uv(uv), normal(0, 0, 0) {}
 	Vertex(XMFLOAT3 pos, XMFLOAT2 uv, XMFLOAT3 normal) : pos(pos), color(1, 1, 1), uv(uv), normal(normal) {}
+	Vertex(float x, float y, float z, float u, float v) : pos(x, y, z), color(1.0f, 1.0f, 1.0f), uv(u, v), normal(0, 0, 0) {}
 };
 
 struct Vertex2D
