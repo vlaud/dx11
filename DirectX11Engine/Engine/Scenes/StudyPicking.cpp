@@ -213,3 +213,12 @@ void StudyPicking::RenderFrame()
 void StudyPicking::OnGUI()
 {
 }
+
+void StudyPicking::OnText(unique_ptr<SpriteBatch>& spriteBatch)
+{
+}
+
+int StudyPicking::GetScore()
+{
+    return 0;
+}
