@@ -1,7 +1,12 @@
 #pragma once
 #include "../Graphics/Objects/GameObject.h"
 #include "../Graphics//ShaderHelper.h"
+//for Sprite font
+#include <SpriteFont.h>
+#include <DirectXMath.h>
+using namespace DirectX;
 
+struct Vertex;
 class Graphics;
 class ID3D11Device;
 class ID3D11DeviceContext;
@@ -24,5 +29,6 @@ public:
 	virtual void Update(float delta) = 0;
 	virtual void RenderFrame() = 0;
 	virtual void OnGUI() = 0;
-
+	virtual void OnText(unique_ptr<SpriteBatch> &spriteBatch) = 0;
+	virtual int GetScore() { return 0; };
 };

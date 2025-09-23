@@ -1,9 +1,5 @@
 #pragma once
 #include "Scene.h"
-#include <DirectXMath.h>
-using namespace DirectX;
-
-struct Vertex; 
 
 class StudyPicking : public Scene
 {
@@ -28,5 +24,7 @@ public:
 	void Update(float delta) override;
 	void RenderFrame() override;
 	void OnGUI() override;
+	void OnText(unique_ptr<SpriteBatch>& spriteBatch) override;
+	int GetScore() override;
 };
 

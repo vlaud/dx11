@@ -13,5 +13,7 @@ public:
 	void Update(float delta) override;
 	void RenderFrame() override;
 	void OnGUI() override;
+	void OnText(unique_ptr<SpriteBatch>& spriteBatch)override;
+	int GetScore() override;
 };
 

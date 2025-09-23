@@ -76,3 +76,12 @@ void StudySpecular::OnGUI()
     ImGui::DragFloat("Intensity", &gfx->cb_light.data.lightStrength, 0.01f, 0.0f, 10.0f);
     ImGui::End();
 }
+
+void StudySpecular::OnText(unique_ptr<SpriteBatch>& spriteBatch)
+{
+}
+
+int StudySpecular::GetScore()
+{
+    return 0;
+}
