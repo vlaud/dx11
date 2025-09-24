@@ -19,7 +19,7 @@ class MeteorScene : public Scene
 	int score = 0;
 	int life = 3;
 
-	bool SphereIntersect(XMVECTOR orgDir, XMVECTOR rayDir);
+	bool SphereIntersect(unique_ptr<GameObject>& obj, XMVECTOR orgDir, XMVECTOR rayDir);
 	void Picking();
 	bool IsPickingObs(unique_ptr<GameObject>& obj);
 protected:

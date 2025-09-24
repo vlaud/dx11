@@ -8,10 +8,10 @@
 unordered_map<VS_SHADER, shared_ptr<VertexShader>> ShaderHelper::vslist;
 unordered_map<PS_SHADER, shared_ptr<PixelShader>> ShaderHelper::pslist;
 
-//#include "../Scenes/StudyBumpMap.h"
-//#include "../Scenes/StudySpecular.h"
-//#include "../Scenes/StudyPicking.h"
-//#include "../Scenes/StudyCollision.h"
+#include "../Scenes/StudyBumpMap.h"
+#include "../Scenes/StudySpecular.h"
+#include "../Scenes/StudyPicking.h"
+#include "../Scenes/StudyCollision.h"
 #include "../Scenes/MeteorScene.h"
 
 //렌더링파이프라인
@@ -217,6 +217,7 @@ bool Graphics::InitializeScene()
 		return false;
 	}
 
+	// Apply Scene
 	scene = make_unique<MeteorScene>();
 	scene->Initialize(this, device.Get(), dc.Get());
 
@@ -244,7 +245,7 @@ void Graphics::RenderFrame()
 	dc->ClearRenderTargetView(renderTargetView.Get(), bgColor);
 	dc->ClearDepthStencilView(dsView.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1, 0);
 	dc->OMSetDepthStencilState(dsState.Get(), 0);
-	
+
 
 	dc->OMSetBlendState(blendState.Get(), nullptr, 0xffffffff);//블렌드 처리는 아웃풋 머저 단계에서
 
@@ -253,7 +254,7 @@ void Graphics::RenderFrame()
 
 	dc->PSSetConstantBuffers(0, 1, cb_alpha.GetAddressOf());
 	dc->RSSetState(rsCullBack.Get());
-	
+
 	cb_light.Update();
 	dc->PSSetConstantBuffers(1, 1, cb_light.GetAddressOf());
 
@@ -287,7 +288,7 @@ void Graphics::RenderFrame()
 	ImGui_ImplDX11_NewFrame();
 	ImGui_ImplWin32_NewFrame();
 	ImGui::NewFrame();
-	
+
 	scene->OnGUI();
 
 	//Draw Call imGUI
